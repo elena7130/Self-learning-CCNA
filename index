@@ -1,0 +1,15 @@
+# Network Learning Log
+
+This repository documents my hands-on learning in network engineering.
+Focus areas include switching, routing, and troubleshooting.
+
+## Structure
+- daily/ — short daily learning logs
+- labs/ — lab descriptions and verification
+- configs/ — sanitized configurations
+- captures/ — packet capture notes or files
+
+## Tools
+- Packet Tracer
+- GNS3 / EVE-NG
+- Wireshark
