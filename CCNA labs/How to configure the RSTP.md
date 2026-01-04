@@ -3,7 +3,8 @@
 1. Check the root bridge (Using CLI and without using CLI)
 2. Manually configure the appropriate RSTP link type on each interface.
 
- ![[Pasted image 20260104113953.png]]
+<img width="1537" height="910" alt="Screenshot 2026-01-04 113938" src="https://github.com/user-attachments/assets/72fb6824-6d2b-4780-9f45-69bbe296e2d8" />
+
 
 ### **Steps** 
 
