@@ -1,14 +1,16 @@
 ## Goal
 
-1. Check the root bridge (Using CLI and without using CLI)
-2. Manually configure the appropriate RSTP link type on each interface.
+1. Identify the root bridge using CLI and non-CLI methods
+2. Manually configure the appropriate RSTP link types on each interface.
 
-<img width="1537" height="910" alt="Screenshot 2026-01-04 113938" src="https://github.com/user-attachments/assets/72fb6824-6d2b-4780-9f45-69bbe296e2d8" />
+### **Topology**
+<img width="1537" height="910" alt="Screenshot 2026-01-04 113938" src="https://github.com/user-attachments/assets/8b46de5c-bfb0-43e9-bd7d-41304f33b04a" />
+
 
 
 ### **Steps** 
 
-1. Identify the root bridge 
+1. Identify the root bridge (Using CLI)
 
 ```
 SW1 # show spanning-tree
@@ -16,27 +18,23 @@ SW1 # show spanning-tree detail
 SW1 # show spanning-tree summary
 ```
 
-   2. Choosing the lowest Bridge ID as root bridge , if Bridge IDs are same , then choosing the lowest MAC
-   3. Configuring the ports of switches to the different type of RSTP
-   ```
-   SW1(configure-if)spanning-tree pord portfast -- change to the edge style
-   SW1(configure-if)spanning-tree pord link-type  -- point to point or shared
-   ```
+
+2. Identify the Root Bridge (Without Using CLI)
+
+    Root Bridge Selection Logic :
+    Choosing the lowest Bridge ID as root bridge , if Bridge IDs are same , then choosing the lowest MAC
    
-## Summary
-
-1. What is RSTP ?
-
-2. What are differences between RSTP and STP ?
-
-3. How to choose Root bridge ? 
-    Choosing the lowest Bridge ID as root bridge , if Bridge IDs are same , then choosing the lowest MAC.
-
-4. What different types between the ports of switches in the STP ?
-    Root port / designated port / non-designated port (backup port & alternative port)
-
-5. What different types between the ports of switches in the STP Link typed ?
-    edge(connect to hosts) / point to point (connect to switches)/ shared(connect to hub)
+ 3. Configuring  RSTP port types
+- a. configure Edge Port 
+   ```
+   SW1(configure-if)spanning-tree portfast
+   # change port to the edge style
+   ```
+   b. Configure Point-to-point Link
+   ```   
+   SW1(configure-if)spanning-tree link-type  point-to-point
+   # point-to-point or shared
+   ```
 
 
 
