@@ -1,0 +1,47 @@
+## Title :
+How to configure EIGRP on each router
+
+## Goal
+
+1. Configure the loopback interface on the router
+2. Configure the passive-interface on the router
+3. Configure the EIGRP on the interface
+
+## Topology
+
+
+
+## Configuration - loopback 
+
+```
+R1(config)interface loopback 0
+R1(config-if)ip add 1.1.1.1 255.255.255.255
+R1(config-if)do sh ip int br
+# I can see Loopback as a vitural interface and loopback always up unless I manually disabele it . 
+```
+
+## Configuration - passive-interface
+
+```
+R1(config)router eigrp x 
+R1(config-if)no auto-summary
+R1(config-if)passive-interface loopback 0 
+```
+
+
+## Configuration - EITGRP
+
+```
+R1(config)router eigrp x 
+R1(config-if) network  IP  wildcard mask
+```
+
+
+### **Verification**
+
+```
+R1(config)do show ip proto
+R1(config)do show ip eigrp neighbour
+R1(config)do show ip route eigrp
+R1(config)do show ip eigrp topology
+```
