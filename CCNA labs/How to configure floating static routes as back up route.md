@@ -1,0 +1,33 @@
+Title : How to configure floating static routes as back up route
+Date:2025-12-16
+
+
+## Goal
+
+1. Configure the floating static route as the backup
+    (OSPF route to be used by default)
+
+
+## Topology
+
+<img width="1408" height="748" alt="Screenshot 2026-01-05 132459" src="https://github.com/user-attachments/assets/658ee4df-a09e-454e-b3f3-21191c018164" />
+
+
+
+ ## **Configuration - check route tables** (on the R1 and R2)
+ 
+ 
+```
+ R1(config) do show ip route 
+```
+
+## **Configuration - configure the floating static route as the OSPF backup route (on the R1 and R2)
+ 
+```
+ R1(config) ip route [destination IP mask next-hop] [AD]
+ 
+ # [AD]>110,because OSPF's administrative distance is 110 , so if we want to use OSPF route by default , we should configure the floating route's AD ,which is > OSPF'S AD 111  
+```
+
+## Tips:
+We should notice the AD. If we don't add AD after 'ip route ', the defalt route would change to static route rather than OSPF
