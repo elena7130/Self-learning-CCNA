@@ -1,0 +1,75 @@
+## Goal
+
+1. Configure the serial connection on routers
+2. Configure the OSPF on R1 and R2
+3. Troubleshooting on R3 and R4 
+4. Troubleshooting on R5
+5. Check the OSDB
+
+## Topology
+<img width="1371" height="572" alt="Screenshot 2026-01-07 145642" src="https://github.com/user-attachments/assets/0122ab6a-955d-4bec-83a4-d6acf61640dd" />
+
+
+## Configuration (on R1(DCE) set the clock rate,R2 is the DTE) - serial
+
+```
+R1(config)interface s0/0/0
+R1(config-if)clock rate 128000
+R1(config-if)ip address 192.168.12.1 255.255.255.252
+R1(config-if)no shut
+```
+
+
+## Configuration (on R1/2) - change cost on each OSPF
+
+```
+R1(config)interface s0/0/0
+R1(config-if)ip ospf 1 area 0 
+R1(config-if)interface g0/0
+R1(config-if)ip ospf 1 area 0 
+```
+
+*In real network ,I'd recommend being consistent about either enabling OSPF directly on the interface , or using the NETWORK command from OSPF config mode . 
+## Configuration (on R1/2) - Checking out
+
+```
+R1# show ip ospf interface g0/0
+R1# show ip ospf neighbor 
+```
+
+
+## Configuration (on R3/4) - Trouble shooting
+<img width="994" height="385" alt="Screenshot 2026-01-07 114226" src="https://github.com/user-attachments/assets/222ab5c5-0114-46ae-bddb-4c19d4b0c30b" />
+
+
+```
+R3# show ip protocols 
+R3# show ip ospf interface g/1
+
+# checking out the g0/1 network type and find out the network type in g0/1 on R3 is point-to-point , which mismatch with g0/1 on R4
+
+R3(config)interface g0/1 
+R3(config-if)no ip ospf network point-to-point
+```
+
+
+## Configuration (on R5) - Trouble shooting
+<img width="1021" height="383" alt="Screenshot 2026-01-07 120906" src="https://github.com/user-attachments/assets/053a4ab7-ea51-4048-8088-ac56c407f39b" />
+
+
+```
+R5# show ip ospf interface g0/0
+
+# The hello and dead time are not default 
+
+R5(config)#interface g0/0
+R5(config-if)#no ip ospf hello-interval
+R5(config-if)#no ip ospf dead-interval
+```
+
+
+## Configuration (on R1) - Checking the LSAs
+
+```
+R1# show ip ospf database 
+```
